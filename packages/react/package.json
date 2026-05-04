@@ -1,0 +1,52 @@
+{
+  "name": "@petx/react",
+  "version": "0.1.0",
+  "description": "React component for rendering animated Codex pet spritesheets.",
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "codex-pet",
+    "react",
+    "spritesheet",
+    "pixel-art"
+  ],
+  "homepage": "https://github.com/IchenDEV/petx#readme",
+  "bugs": {
+    "url": "https://github.com/IchenDEV/petx/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IchenDEV/petx.git",
+    "directory": "packages/react"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && cp src/styles.css dist/styles.css",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "dependencies": {
+    "@petx/core": "workspace:*"
+  }
+}

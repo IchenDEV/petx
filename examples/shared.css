@@ -1,0 +1,105 @@
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #f7f5ef;
+  color: #151515;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+button,
+select {
+  font: inherit;
+}
+
+.example-page {
+  width: min(880px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+.example-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.example-header h1 {
+  margin: 0;
+  font-size: clamp(34px, 7vw, 64px);
+  line-height: 1;
+}
+
+.example-header p {
+  max-width: 520px;
+  margin: 12px 0 0;
+  color: #5c6058;
+  line-height: 1.6;
+}
+
+.example-stage {
+  display: grid;
+  min-height: 420px;
+  place-items: center;
+  border: 1px solid rgba(21, 21, 21, 0.12);
+  border-radius: 8px;
+  background:
+    linear-gradient(45deg, rgba(0, 0, 0, 0.04) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(0, 0, 0, 0.04) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(0, 0, 0, 0.04) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.04) 75%),
+    #ffffff;
+  background-position:
+    0 0,
+    0 10px,
+    10px -10px,
+    -10px 0;
+  background-size: 20px 20px;
+}
+
+.example-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+  padding: 12px;
+  border: 1px solid rgba(21, 21, 21, 0.12);
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.example-toolbar label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #3d413b;
+  font-weight: 700;
+}
+
+.example-toolbar select {
+  border: 1px solid rgba(21, 21, 21, 0.2);
+  border-radius: 6px;
+  padding: 8px 10px;
+  background: #ffffff;
+  color: #151515;
+}
+
+.example-code {
+  margin-top: 18px;
+  overflow-x: auto;
+  border-radius: 8px;
+  background: #1f231f;
+  color: #f6f2e6;
+  padding: 14px;
+  font-size: 14px;
+}
+
+@media (max-width: 640px) {
+  .example-header,
+  .example-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

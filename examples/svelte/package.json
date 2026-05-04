@@ -1,0 +1,21 @@
+{
+  "name": "@petx/example-svelte",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "typecheck": "svelte-check --tsconfig ./tsconfig.json"
+  },
+  "dependencies": {
+    "@petx/svelte": "workspace:*",
+    "svelte": "^5.45.6"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^6.2.2",
+    "svelte-check": "^4.3.4",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.7"
+  }
+}

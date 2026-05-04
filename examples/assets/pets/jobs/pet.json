@@ -1,0 +1,6 @@
+{
+  "id": "jobs",
+  "displayName": "Jobs",
+  "description": "A tiny Steve Jobs inspired Codex pet in a black turtleneck with round glasses and a presentation remote.",
+  "spritesheetPath": "spritesheet.webp"
+}

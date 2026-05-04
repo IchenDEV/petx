@@ -1,0 +1,21 @@
+.codex-pet {
+  display: inline-block;
+  width: var(--codex-pet-display-width, 192px);
+  height: var(--codex-pet-display-height, 208px);
+  overflow: visible;
+  vertical-align: middle;
+}
+
+.codex-pet::before {
+  content: "";
+  display: block;
+  width: var(--codex-pet-frame-width, 192px);
+  height: var(--codex-pet-frame-height, 208px);
+  background-image: var(--codex-pet-src);
+  background-position: var(--codex-pet-x, 0) var(--codex-pet-y, 0);
+  background-repeat: no-repeat;
+  background-size: var(--codex-pet-background-width, 1536px) var(--codex-pet-background-height, 1872px);
+  image-rendering: auto;
+  transform: translate(var(--codex-pet-offset-x, 0), var(--codex-pet-offset-y, 0)) scale(var(--codex-pet-scale, 1));
+  transform-origin: top left;
+}

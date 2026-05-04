@@ -1,0 +1,11 @@
+node_modules/
+npm-packages/
+examples/
+tests/
+packages/*/src/
+coverage/
+*.log
+*.tgz
+.DS_Store
+.env
+.env.*

@@ -1,0 +1,115 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+
+const mainUrl = new URL('../examples/react/src/main.tsx', import.meta.url);
+const cssUrl = new URL('../examples/react/src/site.css', import.meta.url);
+const viteConfigUrl = new URL('../examples/react/vite.config.ts', import.meta.url);
+const pagesWorkflowUrl = new URL('../.github/workflows/pages.yml', import.meta.url);
+
+test('site footer shows the GitHub link without unrelated footer items', async () => {
+  const source = await readFile(mainUrl, 'utf8');
+
+  assert.match(source, /href="https:\/\/github\.com\/IchenDEV\/petx"/);
+  assert.match(source, /GitHubIcon/);
+  assert.doesNotMatch(source, /PyTorchLogo/);
+  assert.doesNotMatch(source, /pytorch\.org|PyTorch/);
+  assert.doesNotMatch(source, /<code>npm run dev<\/code>/);
+});
+
+test('site links to the official Codex pets builder docs', async () => {
+  const source = await readFile(mainUrl, 'utf8');
+
+  assert.match(source, /https:\/\/developers\.openai\.com\/codex\/app\/settings#codex-pets/);
+  assert.match(source, /Build your own pets\?/);
+  assert.match(source, /创建自己的宠物？/);
+});
+
+test('hero install path points code agents to the GitHub AI integration guide', async () => {
+  const source = await readFile(mainUrl, 'utf8');
+  const heroActions = source.match(/<div className="hero-actions" id="install">[\s\S]*?<\/div>/)?.[0] ?? '';
+
+  assert.match(source, /https:\/\/github\.com\/IchenDEV\/petx\/blob\/main\/docs\/AI_AGENT_INTEGRATION\.md/);
+  assert.match(
+    source,
+    /Ask your code agent: follow https:\/\/github\.com\/IchenDEV\/petx\/blob\/main\/docs\/AI_AGENT_INTEGRATION\.md to integrate PetX\./,
+  );
+  assert.match(
+    source,
+    /告诉 code agent：参考 https:\/\/github\.com\/IchenDEV\/petx\/blob\/main\/docs\/AI_AGENT_INTEGRATION\.md 接入 PetX。/,
+  );
+  assert.match(heroActions, /aiInstallPrompt/);
+  assert.doesNotMatch(heroActions, /npm i @petx\/react/);
+});
+
+test('quickstart has a framework selector and framework-specific commands', async () => {
+  const source = await readFile(mainUrl, 'utf8');
+
+  assert.match(source, /quickstartFramework/);
+  assert.match(source, /id="quickstart-framework"/);
+  assert.match(source, /npm i @petx\/vue/);
+  assert.match(source, /definePetXElement/);
+  assert.match(source, /<PetX/);
+  assert.match(source, /<pet-x/);
+  assert.match(source, /@petx\/svelte\/styles\.css/);
+});
+
+test('dark theme uses neutral accents instead of green UI chrome', async () => {
+  const css = await readFile(cssUrl, 'utf8');
+  const darkTheme = css.match(/:root\[data-theme="dark"\]\s*\{[\s\S]*?\n\}/)?.[0] ?? '';
+
+  assert.match(darkTheme, /--accent: #f3f7f4;/);
+  assert.match(darkTheme, /--soft-accent: #242827;/);
+  assert.doesNotMatch(darkTheme, /#31d89f|#123529|#93e6b0/i);
+});
+
+test('dark theme keeps syntax highlighting readable without green chrome', async () => {
+  const css = await readFile(cssUrl, 'utf8');
+  const darkTheme = css.match(/:root\[data-theme="dark"\]\s*\{[\s\S]*?\n\}/)?.[0] ?? '';
+
+  assert.match(darkTheme, /--code-keyword: #82aaff;/);
+  assert.match(darkTheme, /--code-string: #f6c177;/);
+  assert.match(darkTheme, /--code-tag: #f78c6c;/);
+  assert.match(darkTheme, /--code-attribute: #c792ea;/);
+  assert.match(darkTheme, /--code-number: #ffcb6b;/);
+  assert.match(darkTheme, /--code-function: #89ddff;/);
+  assert.doesNotMatch(darkTheme, /--code-(?:keyword|string|tag|attribute|number|function): #[def][def][def]/i);
+  assert.doesNotMatch(darkTheme, /#31d89f|#123529|#93e6b0/i);
+});
+
+test('brand logo has explicit dark-mode colors and no dark shadow block', async () => {
+  const css = await readFile(cssUrl, 'utf8');
+  const darkTheme = css.match(/:root\[data-theme="dark"\]\s*\{[\s\S]*?\n\}/)?.[0] ?? '';
+
+  assert.match(css, /--brand-mark-bg:/);
+  assert.match(css, /--brand-mark-ink:/);
+  assert.match(css, /--brand-mark-shadow:/);
+  assert.match(darkTheme, /--brand-mark-bg: #f3f7f4;/);
+  assert.match(darkTheme, /--brand-mark-ink: #0f1010;/);
+  assert.match(darkTheme, /--brand-mark-shadow: transparent;/);
+});
+
+test('gallery shows only approved demo pets', async () => {
+  const source = await readFile(mainUrl, 'utf8');
+  const petsLine = source.match(/const pets = \[[^\]]+\];/)?.[0] ?? '';
+
+  assert.match(petsLine, /frieren/);
+  assert.match(petsLine, /jobs/);
+  assert.match(petsLine, /trumpet/);
+  assert.doesNotMatch(petsLine, /doraemon|leijun/);
+});
+
+test('site is configured for GitHub Pages project hosting', async () => {
+  const source = await readFile(mainUrl, 'utf8');
+  const viteConfig = await readFile(viteConfigUrl, 'utf8');
+  const workflow = await readFile(pagesWorkflowUrl, 'utf8');
+
+  assert.match(viteConfig, /base: process\.env\.GITHUB_PAGES === 'true' \? '\/petx\/' : '\/'/);
+  assert.match(source, /const assetPath = \(path: string\) => `\$\{import\.meta\.env\.BASE_URL\}\$\{path\.replace\(\//);
+  assert.match(source, /src=\{assetPath\('pets\/frieren\/spritesheet\.webp'\)\}/);
+  assert.match(workflow, /pnpm\/action-setup@v4/);
+  assert.match(workflow, /pnpm install --frozen-lockfile/);
+  assert.match(workflow, /GITHUB_PAGES: 'true'/);
+  assert.match(workflow, /actions\/configure-pages@v5/);
+  assert.match(workflow, /path: examples\/react\/dist/);
+});

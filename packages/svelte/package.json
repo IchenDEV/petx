@@ -1,0 +1,57 @@
+{
+  "name": "@petx/svelte",
+  "version": "0.1.0",
+  "description": "Svelte component for rendering animated Codex pet spritesheets.",
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "codex-pet",
+    "svelte",
+    "spritesheet",
+    "pixel-art"
+  ],
+  "homepage": "https://github.com/IchenDEV/petx#readme",
+  "bugs": {
+    "url": "https://github.com/IchenDEV/petx/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IchenDEV/petx.git",
+    "directory": "packages/svelte"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "main": "./dist/index.js",
+  "svelte": "./dist/PetX.svelte",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "svelte": "./dist/PetX.svelte",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && cp src/PetX.svelte dist/PetX.svelte && cp src/PetX.svelte dist/CodexPet.svelte && cp src/PetX.svelte.d.ts dist/PetX.svelte.d.ts && cp src/PetX.svelte.d.ts dist/CodexPet.svelte.d.ts && cp src/styles.css dist/styles.css",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "peerDependencies": {
+    "svelte": ">=4"
+  },
+  "devDependencies": {
+    "svelte": "^5.45.6"
+  },
+  "dependencies": {
+    "@petx/core": "workspace:*"
+  }
+}

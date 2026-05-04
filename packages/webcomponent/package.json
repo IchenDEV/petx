@@ -1,0 +1,46 @@
+{
+  "name": "@petx/webcomponent",
+  "version": "0.1.0",
+  "description": "Framework-free Web Component for rendering animated Codex pet spritesheets.",
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "codex-pet",
+    "web-components",
+    "custom-element",
+    "spritesheet"
+  ],
+  "homepage": "https://github.com/IchenDEV/petx#readme",
+  "bugs": {
+    "url": "https://github.com/IchenDEV/petx/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IchenDEV/petx.git",
+    "directory": "packages/webcomponent"
+  },
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@petx/core": "workspace:*"
+  }
+}

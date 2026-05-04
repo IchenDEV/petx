@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src"
+  },
+  "include": [
+    "src/index.ts",
+    "src/svelte-shim.d.ts",
+    "src/PetX.svelte.d.ts",
+    "src/CodexPet.svelte.d.ts"
+  ]
+}

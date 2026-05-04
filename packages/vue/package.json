@@ -1,0 +1,52 @@
+{
+  "name": "@petx/vue",
+  "version": "0.1.0",
+  "description": "Vue component for rendering animated Codex pet spritesheets.",
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "codex-pet",
+    "vue",
+    "spritesheet",
+    "pixel-art"
+  ],
+  "homepage": "https://github.com/IchenDEV/petx#readme",
+  "bugs": {
+    "url": "https://github.com/IchenDEV/petx/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IchenDEV/petx.git",
+    "directory": "packages/vue"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && cp src/styles.css dist/styles.css",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "peerDependencies": {
+    "vue": ">=3.4"
+  },
+  "dependencies": {
+    "@petx/core": "workspace:*"
+  }
+}
