@@ -8,6 +8,24 @@ importers:
 
   .:
     devDependencies:
+      '@petx/core':
+        specifier: workspace:*
+        version: link:packages/core
+      '@petx/react':
+        specifier: workspace:*
+        version: link:packages/react
+      '@petx/solid':
+        specifier: workspace:*
+        version: link:packages/solid
+      '@petx/svelte':
+        specifier: workspace:*
+        version: link:packages/svelte
+      '@petx/vue':
+        specifier: workspace:*
+        version: link:packages/vue
+      '@petx/webcomponent':
+        specifier: workspace:*
+        version: link:packages/webcomponent
       '@sveltejs/vite-plugin-svelte':
         specifier: ^6.2.2
         version: 6.2.4(svelte@5.55.5)(vite@7.3.2)
@@ -23,6 +41,12 @@ importers:
       '@vitejs/plugin-vue':
         specifier: ^6.0.2
         version: 6.0.6(vite@7.3.2)(vue@3.5.33(typescript@5.9.3))
+      react:
+        specifier: ^19.2.5
+        version: 19.2.5
+      react-dom:
+        specifier: ^19.2.5
+        version: 19.2.5(react@19.2.5)
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -32,6 +56,9 @@ importers:
       vite-plugin-solid:
         specifier: ^2.11.8
         version: 2.11.12(solid-js@1.9.12)(vite@7.3.2)
+      vue:
+        specifier: ^3.5.33
+        version: 3.5.33(typescript@5.9.3)
 
   examples/react:
     dependencies:

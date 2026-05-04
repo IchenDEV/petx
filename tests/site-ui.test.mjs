@@ -21,8 +21,10 @@ test('site links to the official Codex pets builder docs', async () => {
   const source = await readFile(mainUrl, 'utf8');
 
   assert.match(source, /https:\/\/developers\.openai\.com\/codex\/app\/settings#codex-pets/);
-  assert.match(source, /Build your own pets\?/);
-  assert.match(source, /创建自己的宠物？/);
+  assert.match(source, /buildPets: 'Build your own pets'/);
+  assert.match(source, /buildPets: '创建自己的宠物'/);
+  assert.doesNotMatch(source, /Build your own pets\?/);
+  assert.doesNotMatch(source, /创建自己的宠物？/);
 });
 
 test('hero install path points code agents to the GitHub AI integration guide', async () => {
@@ -47,6 +49,8 @@ test('quickstart has a framework selector and framework-specific commands', asyn
 
   assert.match(source, /quickstartFramework/);
   assert.match(source, /id="quickstart-framework"/);
+  assert.equal(source.match(/tryProps: 'Playground'/g)?.length, 2);
+  assert.doesNotMatch(source, /Try the props/);
   assert.match(source, /npm i @petx\/vue/);
   assert.match(source, /definePetXElement/);
   assert.match(source, /<PetX/);

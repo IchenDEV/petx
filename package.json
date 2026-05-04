@@ -43,13 +43,22 @@
     "test": "pnpm run typecheck && pnpm run build && node --test tests/*.test.mjs"
   },
   "devDependencies": {
+    "@petx/core": "workspace:*",
+    "@petx/react": "workspace:*",
+    "@petx/solid": "workspace:*",
+    "@petx/svelte": "workspace:*",
+    "@petx/vue": "workspace:*",
+    "@petx/webcomponent": "workspace:*",
     "@sveltejs/vite-plugin-svelte": "^6.2.2",
+    "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
     "@vitejs/plugin-vue": "^6.0.2",
-    "@types/react": "^19.2.7",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
     "typescript": "^5.9.3",
     "vite": "^7.2.7",
-    "vite-plugin-solid": "^2.11.8"
+    "vite-plugin-solid": "^2.11.8",
+    "vue": "^3.5.33"
   }
 }
