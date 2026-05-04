@@ -26,6 +26,7 @@ yarn-error.log*
 tmp/
 .vite/
 .turbo/
+.vercel/
 
 # system files
 .DS_Store
