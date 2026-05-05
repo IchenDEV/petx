@@ -3,9 +3,18 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 
 const mainUrl = new URL('../examples/react/src/main.tsx', import.meta.url);
+const htmlUrl = new URL('../examples/react/index.html', import.meta.url);
 const cssUrl = new URL('../examples/react/src/site.css', import.meta.url);
 const viteConfigUrl = new URL('../examples/react/vite.config.ts', import.meta.url);
 const pagesWorkflowUrl = new URL('../.github/workflows/pages.yml', import.meta.url);
+
+test('site declares a favicon from the static asset root', async () => {
+  const html = await readFile(htmlUrl, 'utf8');
+  const favicon = await readFile(new URL('../examples/assets/favicon.svg', import.meta.url), 'utf8');
+
+  assert.match(html, /<link rel="icon" type="image\/svg\+xml" href="\/favicon\.svg" \/>/);
+  assert.match(favicon, /<svg xmlns="http:\/\/www\.w3\.org\/2000\/svg" viewBox="0 0 64 64">/);
+});
 
 test('site footer shows the GitHub link without unrelated footer items', async () => {
   const source = await readFile(mainUrl, 'utf8');
