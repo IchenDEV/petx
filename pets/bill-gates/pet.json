@@ -1,0 +1,6 @@
+{
+  "id": "bill-gates",
+  "displayName": "Bill Gates",
+  "description": "A tiny pixel-style Bill Gates-inspired coding companion with square glasses, gray hair, a blue sweater, and a calm friendly expression.",
+  "spritesheetPath": "spritesheet.webp"
+}
