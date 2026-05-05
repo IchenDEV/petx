@@ -41,8 +41,6 @@ jobs:
 
       - name: Build site
         run: pnpm --filter @petx/example-react build
-        env:
-          GITHUB_PAGES: 'true'
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

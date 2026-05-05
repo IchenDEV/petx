@@ -103,17 +103,19 @@ test('gallery shows only approved demo pets', async () => {
   assert.doesNotMatch(petsLine, /doraemon|leijun/);
 });
 
-test('site is configured for GitHub Pages project hosting', async () => {
+test('site is configured for the custom-domain GitHub Pages root', async () => {
   const source = await readFile(mainUrl, 'utf8');
   const viteConfig = await readFile(viteConfigUrl, 'utf8');
   const workflow = await readFile(pagesWorkflowUrl, 'utf8');
+  const cname = await readFile(new URL('../examples/assets/CNAME', import.meta.url), 'utf8');
 
-  assert.match(viteConfig, /base: process\.env\.GITHUB_PAGES === 'true' \? '\/petx\/' : '\/'/);
+  assert.match(viteConfig, /base: '\/'/);
   assert.match(source, /const assetPath = \(path: string\) => `\$\{import\.meta\.env\.BASE_URL\}\$\{path\.replace\(\//);
   assert.match(source, /src=\{assetPath\('pets\/frieren\/spritesheet\.webp'\)\}/);
   assert.match(workflow, /pnpm\/action-setup@v4/);
   assert.match(workflow, /pnpm install --frozen-lockfile/);
-  assert.match(workflow, /GITHUB_PAGES: 'true'/);
+  assert.doesNotMatch(workflow, /GITHUB_PAGES: 'true'/);
   assert.match(workflow, /actions\/configure-pages@v5/);
   assert.match(workflow, /path: examples\/react\/dist/);
+  assert.equal(cname.trim(), 'petx.idevlab.dev');
 });
