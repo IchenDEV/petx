@@ -61,10 +61,23 @@ test('quickstart has a framework selector and framework-specific commands', asyn
   assert.equal(source.match(/tryProps: 'Playground'/g)?.length, 2);
   assert.doesNotMatch(source, /Try the props/);
   assert.match(source, /npm i @petx\/vue/);
+  assert.match(source, /npm i @petx\/react-native/);
+  assert.match(source, /source=\{require\("\.\/assets\/pets\/frieren\/spritesheet\.webp"\)\}/);
   assert.match(source, /definePetXElement/);
   assert.match(source, /<PetX/);
   assert.match(source, /<pet-x/);
   assert.match(source, /@petx\/svelte\/styles\.css/);
+});
+
+test('site introduces React Native as a rendering target', async () => {
+  const source = await readFile(mainUrl, 'utf8');
+
+  assert.match(source, /React Native/);
+  assert.match(source, /@petx\/react-native/);
+  assert.match(source, /One sprite format\. Six rendering targets\./);
+  assert.match(source, /一种 sprite 格式，六种渲染目标。/);
+  assert.match(source, /React Native renders through native View and Image primitives/);
+  assert.match(source, /React Native 通过原生 View 和 Image 渲染，不需要 CSS。/);
 });
 
 test('dark theme uses neutral accents instead of green UI chrome', async () => {

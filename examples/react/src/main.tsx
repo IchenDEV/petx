@@ -20,6 +20,7 @@ const atlasLabels: Record<number, string> = {
 
 const frameworks = [
   { name: 'React', pkg: '@petx/react', command: 'npm i @petx/react' },
+  { name: 'React Native', pkg: '@petx/react-native', command: 'npm i @petx/react-native' },
   { name: 'Vue', pkg: '@petx/vue', command: 'npm i @petx/vue' },
   { name: 'Svelte', pkg: '@petx/svelte', command: 'npm i @petx/svelte' },
   { name: 'SolidJS', pkg: '@petx/solid', command: 'npm i @petx/solid' },
@@ -39,6 +40,15 @@ const props = [
     description: {
       en: 'Spritesheet URL. Usually `/pets/<id>/spritesheet.webp`.',
       zh: 'Spritesheet 地址，通常是 `/pets/<id>/spritesheet.webp`。',
+    },
+  },
+  {
+    name: 'source',
+    type: 'ImageSourcePropType',
+    defaultValue: '-',
+    description: {
+      en: 'React Native image source for bundled app assets.',
+      zh: 'React Native 用的图片来源，适合应用内置资源。',
     },
   },
   {
@@ -142,7 +152,7 @@ const props = [
   },
 ];
 
-type FrameworkName = 'React' | 'Vue' | 'Svelte' | 'Solid' | 'Web Component';
+type FrameworkName = 'React' | 'React Native' | 'Vue' | 'Svelte' | 'Solid' | 'Web Component';
 type Locale = 'en' | 'zh';
 type HighlightToken = {
   text: string;
@@ -151,6 +161,7 @@ type HighlightToken = {
 
 const quickstartFrameworks: Array<{ value: FrameworkName; label: string }> = [
   { value: 'React', label: 'React' },
+  { value: 'React Native', label: 'React Native' },
   { value: 'Vue', label: 'Vue' },
   { value: 'Svelte', label: 'Svelte' },
   { value: 'Solid', label: 'SolidJS' },
@@ -162,6 +173,11 @@ const quickstartByFramework: Record<FrameworkName, { install: string; importCode
     install: 'npm i @petx/react',
     importCode: "import { PetX } from '@petx/react';\nimport '@petx/react/styles.css';",
     usageCode: '<PetX src="/pets/frieren/spritesheet.webp" animation="idle" />',
+  },
+  'React Native': {
+    install: 'npm i @petx/react-native',
+    importCode: "import { PetX } from '@petx/react-native';",
+    usageCode: '<PetX source={require("./assets/pets/frieren/spritesheet.webp")} animation="idle" />',
   },
   Vue: {
     install: 'npm i @petx/vue',
@@ -201,14 +217,14 @@ const content = {
     languageLabel: 'Language',
     heroTitle: 'Render Codex pets anywhere.',
     heroBody:
-      'PetX turns the Codex pet atlas into framework-native components for React, Vue, Svelte, SolidJS, and plain Web Components.',
+      'PetX turns the Codex pet atlas into framework-native components for React, React Native, Vue, Svelte, SolidJS, and plain Web Components.',
     aiInstallPrompt:
       'Ask your code agent: follow https://github.com/IchenDEV/petx/blob/main/docs/AI_AGENT_INTEGRATION.md to integrate PetX.',
     aiInstallGuide: 'AI integration guide',
     tryProps: 'Playground',
     buildPets: 'Build your own pets',
     quickstartTitle: 'Connect it in three steps.',
-    quickstartBody: 'Install the package for your framework, import the CSS once, then pass a Codex pet spritesheet URL.',
+    quickstartBody: 'Install the package for your target, import the component, then pass a Codex pet spritesheet.',
     quickstartFrameworkLabel: 'Framework',
     steps: [
       {
@@ -217,8 +233,8 @@ const content = {
         code: 'npm i @petx/react',
       },
       {
-        title: 'Import component and CSS',
-        body: 'The CSS maps atlas frame coordinates into variables that every package can share.',
+        title: 'Import the renderer',
+        body: 'Web packages import CSS once. React Native renders through native View and Image primitives.',
         code: "import '@petx/react/styles.css'",
       },
       {
@@ -227,8 +243,8 @@ const content = {
         code: 'src="/pets/frieren/spritesheet.webp"',
       },
     ],
-    frameworksTitle: 'One sprite format. Five rendering targets.',
-    frameworksBody: 'Use the same `spritesheet.webp` and `pet.json` across the front-end stack.',
+    frameworksTitle: 'One sprite format. Six rendering targets.',
+    frameworksBody: 'Use the same `spritesheet.webp` and `pet.json` across the front-end and mobile stack.',
     playgroundTitle: 'Play with the props, copy the code.',
     playgroundBody: 'The controls update the preview and code in real time, so developers can copy the exact integration.',
     codeTabsAria: 'Code examples',
@@ -274,13 +290,13 @@ const content = {
     themeDark: '深色',
     languageLabel: '语言',
     heroTitle: '在任何前端里渲染 Codex 宠物。',
-    heroBody: 'PetX 把 Codex pet atlas 变成 React、Vue、Svelte、SolidJS 和 Web Components 都能直接用的组件。',
+    heroBody: 'PetX 把 Codex pet atlas 变成 React、React Native、Vue、Svelte、SolidJS 和 Web Components 都能直接用的组件。',
     aiInstallPrompt: '告诉 code agent：参考 https://github.com/IchenDEV/petx/blob/main/docs/AI_AGENT_INTEGRATION.md 接入 PetX。',
     aiInstallGuide: 'AI 接入文档',
     tryProps: 'Playground',
     buildPets: '创建自己的宠物',
     quickstartTitle: '接入只要三步。',
-    quickstartBody: '先安装对应框架包，再导入 CSS，最后传入 Codex pet 的 spritesheet 地址。',
+    quickstartBody: '先安装对应目标包，再导入组件，最后传入 Codex pet 的 spritesheet。',
     quickstartFrameworkLabel: '框架',
     steps: [
       {
@@ -289,8 +305,8 @@ const content = {
         code: 'npm i @petx/react',
       },
       {
-        title: '导入组件和 CSS',
-        body: 'CSS 把 atlas 帧坐标映射成变量，所有框架包都复用同一套渲染规则。',
+        title: '导入渲染组件',
+        body: 'Web 包导入一次 CSS；React Native 通过原生 View 和 Image 渲染，不需要 CSS。',
         code: "import '@petx/react/styles.css'",
       },
       {
@@ -299,8 +315,8 @@ const content = {
         code: 'src="/pets/frieren/spritesheet.webp"',
       },
     ],
-    frameworksTitle: '一种 sprite 格式，五种渲染目标。',
-    frameworksBody: '同一个 `spritesheet.webp` 和 `pet.json` 可以在整套前端技术栈里复用。',
+    frameworksTitle: '一种 sprite 格式，六种渲染目标。',
+    frameworksBody: '同一个 `spritesheet.webp` 和 `pet.json` 可以在前端和移动端技术栈里复用。',
     playgroundTitle: '调参数，看预览，复制代码。',
     playgroundBody: '这里的控件会实时更新预览和代码，开发者可以直接复制对应框架的写法。',
     codeTabsAria: '代码示例',
@@ -361,6 +377,24 @@ import '@petx/vue/styles.css';
     :playing="${shared.playing}"
   />
 </template>`;
+  }
+
+  if (framework === 'React Native') {
+    return `import { PetX } from '@petx/react-native';
+
+export function Preview() {
+  return (
+    <PetX
+      source={require("./assets/pets/frieren/spritesheet.webp")}
+      animation="${shared.animation}"
+      size={${shared.size}}
+      offsetX={${shared.offsetX}}
+      offsetY={${shared.offsetY}}
+      frameInterval={${shared.frameInterval}}
+      playing={${shared.playing}}
+    />
+  );
+}`;
   }
 
   if (framework === 'Svelte') {
@@ -722,7 +756,7 @@ function App() {
           <PetPlayground demo={demo} labels={t.demo} onChange={updateDemo} />
           <div className="code-layout">
             <div className="snippet-tabs" role="tablist" aria-label={t.codeTabsAria}>
-              {(['React', 'Vue', 'Svelte', 'Solid', 'Web Component'] as FrameworkName[]).map((item) => (
+              {(['React', 'React Native', 'Vue', 'Svelte', 'Solid', 'Web Component'] as FrameworkName[]).map((item) => (
                 <button key={item} className={framework === item ? 'active' : ''} onClick={() => setFramework(item)}>
                   {item}
                 </button>
