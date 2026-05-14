@@ -14,7 +14,14 @@ test('README links to the AI agent integration guide', async () => {
 test('AI integration guide is actionable for supported frameworks', async () => {
   const guide = await readFile(aiGuideUrl, 'utf8');
 
-  for (const packageName of ['@petx/react', '@petx/vue', '@petx/svelte', '@petx/solid', '@petx/webcomponent']) {
+  for (const packageName of [
+    '@petx/react',
+    '@petx/react-native',
+    '@petx/vue',
+    '@petx/svelte',
+    '@petx/solid',
+    '@petx/webcomponent',
+  ]) {
     assert.match(guide, new RegExp(packageName.replace('/', '\\/')));
   }
 

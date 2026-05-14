@@ -31,6 +31,7 @@ Read the target app's `package.json` and choose one package:
 | App signal | Install |
 | --- | --- |
 | `react` or `next` | `@petx/react` |
+| `react-native` or `expo` | `@petx/react-native` |
 | `vue` or `nuxt` | `@petx/vue` |
 | `svelte` or `@sveltejs/kit` | `@petx/svelte` |
 | `solid-js` or `solid-start` | `@petx/solid` |
@@ -127,6 +128,50 @@ export function PetPreview() {
   );
 }
 ```
+
+## React Native
+
+Install:
+
+```bash
+npm i @petx/react-native
+```
+
+Bundled app assets should use the native `source` prop:
+
+```tsx
+import { PetX } from '@petx/react-native';
+
+export function PetPreview() {
+  return (
+    <PetX
+      source={require('./assets/pets/frieren/spritesheet.webp')}
+      animation="idle"
+      size={192}
+      title="Frieren Codex pet"
+    />
+  );
+}
+```
+
+Remote spritesheets can use `src`:
+
+```tsx
+import { PetX } from '@petx/react-native';
+
+export function PetPreview() {
+  return (
+    <PetX
+      src="https://example.com/pets/frieren/spritesheet.webp"
+      animation="waving"
+      size={192}
+      title="Frieren Codex pet"
+    />
+  );
+}
+```
+
+React Native uses numeric layout values and does not need a PetX CSS import.
 
 ## Vue
 
@@ -253,6 +298,7 @@ The Web Component package does not require a CSS import.
 | Prop | Type | Default | Use |
 | --- | --- | --- | --- |
 | `src` | `string` | none | Spritesheet URL. |
+| `source` | `ImageSourcePropType` | none | React Native bundled asset or native image source. |
 | `pet` | `CodexPetManifest` | none | Manifest object with `spritesheetPath`. |
 | `manifestUrl` | `string` | none | Base URL for resolving relative manifest paths. |
 | `animation` | `string` | `idle` | Animation key. |
@@ -265,6 +311,8 @@ The Web Component package does not require a CSS import.
 | `atlas` | `Partial<CodexPetAtlas>` | default atlas | Use for non-default frame sizes. |
 | `animations` | `CodexPetAnimations` | default animations | Use for custom row or frame counts. |
 | `title` | `string` | none | Accessible image label. |
+
+For React Native, `size`, `offsetX`, and `offsetY` use numeric layout values.
 
 Web Component attribute names use kebab case:
 
