@@ -38,6 +38,21 @@ test('React package renders the shared Codex pet contract', () => {
   assertRenderedPet(html);
 });
 
+test('React Native package renders atlas frames through native View and Image primitives', async () => {
+  const packageJson = JSON.parse(await readFile(new URL('../packages/react-native/package.json', import.meta.url), 'utf8'));
+  const entry = await readFile(new URL('../packages/react-native/dist/index.js', import.meta.url), 'utf8');
+  const types = await readFile(new URL('../packages/react-native/dist/index.d.ts', import.meta.url), 'utf8');
+
+  assert.equal(packageJson.name, '@petx/react-native');
+  assert.equal(packageJson.peerDependencies['react-native'], '>=0.73');
+  assert.equal(packageJson.sideEffects, false);
+  assert.match(entry, /from ['"]react-native['"]/);
+  assert.match(entry, /getCodexPetFrame/);
+  assert.match(entry, /resizeMode: "stretch"/);
+  assert.match(types, /source\?: ImageSourcePropType/);
+  assert.match(types, /size\?: number/);
+});
+
 test('Vue package renders the shared Codex pet contract', async () => {
   const html = await renderToString(h(VuePetX, spriteProps));
   assertRenderedPet(html);

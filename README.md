@@ -29,6 +29,7 @@ Default animation rows:
 
 - `@petx/core`: shared types, animation table, frame style helpers
 - `@petx/react`: React component
+- `@petx/react-native`: React Native component
 - `@petx/vue`: Vue component
 - `@petx/webcomponent`: framework-free custom element
 - `@petx/svelte`: Svelte component
@@ -59,6 +60,25 @@ export function Preview() {
   );
 }
 ```
+
+## React Native
+
+```tsx
+import { PetX } from '@petx/react-native';
+
+export function Preview() {
+  return (
+    <PetX
+      source={require('./assets/pets/frieren/spritesheet.webp')}
+      animation="idle"
+      size={192}
+      title="Frieren Codex pet"
+    />
+  );
+}
+```
+
+Use `src` for remote spritesheets and `source` for bundled app assets. React Native does not need a PetX CSS import.
 
 ## Vue
 

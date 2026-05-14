@@ -13,6 +13,7 @@ const bugsUrl = 'https://github.com/IchenDEV/petx/issues';
 const publishedPackages = [
   { dir: 'packages/core', name: '@petx/core', hasCss: false },
   { dir: 'packages/react', name: '@petx/react', hasCss: true },
+  { dir: 'packages/react-native', name: '@petx/react-native', hasCss: false },
   { dir: 'packages/vue', name: '@petx/vue', hasCss: true },
   { dir: 'packages/svelte', name: '@petx/svelte', hasCss: true },
   { dir: 'packages/solid', name: '@petx/solid', hasCss: true },
